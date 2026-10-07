@@ -20,4 +20,4 @@ Add a function with `@mcp.tool()`; type hints become the input schema and the do
 The full **MCP Server Starter** adds 3 tools, a resource, a prompt, path-traversal-safe file notes and 5 tests: https://gilishe.gumroad.com/l/mcp-server-starter
 
 ## Notices
-MIT licensed (see LICENSE). Depends on `mcp` (MIT) and `pytest` (MIT), installed separately. Claude and Anthropic are trademarks of Anthropic, PBC; "MCP" refers to the open Model Context Protocol. This project is not affiliated with or endorsed by them. Created with AI assistance (Claude) and human-reviewed.
+MIT licensed (see LICENSE). Depends on `mcp` (MIT) and `pytest` (MIT), installed separately. Claude and Anthropic are trademarks of Anthropic, PBC; "MCP" refers to the open Model Context Protocol. This project is not affiliated with or endorsed by them. Created with AI assistance (Claude) and tested as described here.
