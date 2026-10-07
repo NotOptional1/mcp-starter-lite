@@ -9,9 +9,27 @@ pip install "mcp>=2" pytest
 python -m pytest
 python server.py        # stdio
 ```
-Claude Desktop / Claude Code config: `{ "mcpServers": { "starter-lite": { "command": "python3", "args": ["/abs/path/server.py"] } } }`
-
 Local stdio only, no authentication.
+
+## Connect it to Claude
+First make sure the server works on its own: `python -m pytest` should show 2 passed. Use the **absolute** path to `server.py` and the same Python that has `mcp` installed (if you used a virtualenv, give the full path to that venv's `python`).
+
+**Claude Code** (command line):
+```bash
+claude mcp add starter-lite -- python3 /abs/path/server.py
+claude mcp list          # starter-lite should appear
+```
+Then ask: "How many days until 2030-01-01?" and approve the `days_until` tool call.
+
+**Claude Desktop:** open Settings > Developer > Edit Config (the file is `claude_desktop_config.json`), add this, save and fully restart the app:
+```json
+{ "mcpServers": { "starter-lite": { "command": "python3", "args": ["/abs/path/server.py"] } } }
+```
+If the file already has an `mcpServers` block, add `starter-lite` inside it instead of a second block.
+
+**If it doesn't show up:** a relative path, a Python without `mcp` installed, or invalid JSON in the config are the usual causes. Run `python3 /abs/path/server.py` in a terminal; it should wait silently for input (stop it with Ctrl+C). An import error there is your answer.
+
+What I tested: the server starts and answers tool calls over stdio through the SDK's own client (that is what the 2 tests do). What I did not test: the Claude Desktop and Claude Code steps above, which follow their documented config format; menu names and commands may differ in your version.
 
 ## Extend it
 Add a function with `@mcp.tool()`; type hints become the input schema and the docstring the description. Raise `ToolError("message")` for failures you expect, so the model sees a clear error.
